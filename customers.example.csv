@@ -1,0 +1,3 @@
+name,phone,email,address,city,lawn_size_or_notes,last_service_date,next_due,status,quote_amount,quote_sent_date,follow_up_date,source,notes
+EXAMPLE - Jordan Sample,608-555-0100,jordan.example@email.com,123 Example St,La Crosse,Typical city lot ~0.2 acre,,,quote,55,2026-09-10,2026-09-14,website,EXAMPLE ROW — replace with real customer; not a real person.
+EXAMPLE - Sam Neighbor,608-555-0199,sam.neighbor.example@email.com,456 Demo Ave,Onalaska,Bigger yard / ridge-ish,,,lead,,,,door hanger,EXAMPLE ROW — fill real info when you get a lead; delete these when ready
