@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Add customer · Lacrosse Lawn</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .add-wrap { max-width: 420px; margin: 24px auto; padding: 0 16px 40px; }
+    .add-wrap h1 { font-size: 1.4rem; margin: 0 0 8px; }
+    .add-wrap p.lead { color: #666; margin: 0 0 20px; }
+    .add-wrap label { display: block; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin: 12px 0 6px; }
+    .add-wrap input, .add-wrap textarea {
+      width: 100%; box-sizing: border-box; padding: 12px; border: 2px solid #0b0b0b;
+      border-radius: 0; font: inherit; background: #fff;
+    }
+    .add-actions { display: grid; gap: 10px; margin-top: 20px; }
+    .hint { margin-top: 18px; font-size: .85rem; color: #666; line-height: 1.4; }
+    .hint code { background: #f0f0f0; padding: 1px 4px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">Lacrosse Lawn</p>
+          <p class="brand-tag">Add a customer</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn btn-ghost" href="./">CRM</a>
+      </div>
+    </div>
+  </header>
+  <main class="add-wrap">
+    <h1>Add customer</h1>
+    <p class="lead">Fills an email to Boss Man. Tap Send in Mail — we’ll put them on your list.</p>
+    <form id="f">
+      <label for="name">Name</label>
+      <input id="name" name="name" required autocomplete="name" placeholder="Debra Chudd">
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="608-555-1234">
+      <label for="address">Address</label>
+      <input id="address" name="address" autocomplete="street-address" placeholder="123 Main St, La Crosse">
+      <label for="notes">Notes (optional)</label>
+      <textarea id="notes" name="notes" rows="2" placeholder="Gate code, dogs, Friday only…"></textarea>
+      <div class="add-actions">
+        <button class="btn btn-lime" type="submit">Email to add list</button>
+        <a class="btn btn-ghost" id="siriHelp" href="./siri.html">Set up Hey Siri</a>
+      </div>
+    </form>
+    <p class="hint">Siri shortcut should email <code>lacrosselawnandlandscape@gmail.com</code> with subject <code>ADD CUSTOMER</code> and the customer info in the body.</p>
+  </main>
+  <script>
+    const TO = 'lacrosselawnandlandscape@gmail.com';
+    document.getElementById('f').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const notes = document.getElementById('notes').value.trim();
+      const body = [name, phone, address, notes].filter(Boolean).join(', ');
+      const url = `mailto:${TO}?subject=${encodeURIComponent('ADD CUSTOMER')}&body=${encodeURIComponent(body)}`;
+      window.location.href = url;
+    });
+  </script>
+</body>
+</html>

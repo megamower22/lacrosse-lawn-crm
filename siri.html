@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0b">
+  <title>Hey Siri setup · Lacrosse Lawn</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .guide { max-width: 520px; margin: 24px auto; padding: 0 16px 48px; }
+    .guide h1 { font-size: 1.35rem; margin: 0 0 8px; }
+    .guide .lead { color: #666; margin: 0 0 20px; }
+    .step {
+      border: 2px solid #0b0b0b; background: #fff; padding: 14px 16px; margin: 0 0 12px;
+    }
+    .step strong { display: block; margin-bottom: 6px; }
+    .step ol { margin: 0; padding-left: 1.2rem; }
+    .step li { margin: 4px 0; }
+    code, .pill {
+      font-family: ui-monospace, monospace; background: #f0f0f0; padding: 2px 6px;
+    }
+    .copy-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .note { font-size: .9rem; color: #555; margin-top: 16px; line-height: 1.45; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">Lacrosse Lawn</p>
+          <p class="brand-tag">Hey Siri setup</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn btn-ghost" href="./add.html">Add form</a>
+        <a class="btn btn-ghost" href="./">CRM</a>
+      </div>
+    </div>
+  </header>
+  <main class="guide">
+    <h1>Hey Siri → add customer</h1>
+    <p class="lead">Apple won’t let Boss Man install Shortcuts on your phone. Build this once — then voice does the rest.</p>
+
+    <div class="step">
+      <strong>1. Open Shortcuts</strong>
+      <ol>
+        <li>Open the <em>Shortcuts</em> app</li>
+        <li>Tap <em>+</em> (new shortcut)</li>
+        <li>Name it <span class="pill">Add lawn customer</span></li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <strong>2. Ask for Input</strong>
+      <ol>
+        <li>Add action: <em>Ask for Input</em></li>
+        <li>Prompt: <span class="pill">Name, phone, address</span></li>
+        <li>Input type: Text</li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <strong>3. Send Email</strong>
+      <ol>
+        <li>Add action: <em>Send Email</em> (or <em>Open URLs</em> with mailto — see below)</li>
+        <li>To: <span class="pill">lacrosselawnandlandscape@gmail.com</span></li>
+        <li>Subject: <span class="pill">ADD CUSTOMER</span> (exact)</li>
+        <li>Body: tap → insert the <em>Provided Input</em> variable</li>
+        <li>Turn <em>Show Compose Sheet</em> OFF if you want it to send quietly (optional)</li>
+      </ol>
+      <div class="copy-row">
+        <button type="button" class="btn btn-lime" id="copyEmail">Copy email</button>
+        <button type="button" class="btn btn-ghost" id="copySubject">Copy subject</button>
+      </div>
+    </div>
+
+    <div class="step">
+      <strong>4. Add to Siri</strong>
+      <ol>
+        <li>Shortcut details (ⓘ) → <em>Add to Siri</em></li>
+        <li>Phrase: <span class="pill">Add lawn customer</span></li>
+      </ol>
+    </div>
+
+    <div class="step">
+      <strong>5. Test</strong>
+      <ol>
+        <li>Say: <em>Hey Siri, add lawn customer</em></li>
+        <li>Speak: <span class="pill">Test Customer, 6085550000, 1 Test St</span></li>
+        <li>Message Boss Man “test sent” — he’ll confirm when it’s on the list (checks every 15 min)</li>
+      </ol>
+      <div class="copy-row">
+        <a class="btn btn-lime" href="mailto:lacrosselawnandlandscape@gmail.com?subject=ADD%20CUSTOMER&body=Test%20Customer%2C%206085550000%2C%201%20Test%20St">Send a test email now</a>
+      </div>
+    </div>
+
+    <p class="note">Easier day-to-day without Siri: use the <a href="./add.html">Add customer</a> form — it opens Mail already filled in.</p>
+  </main>
+  <script>
+    async function copy(text, btn) {
+      try {
+        await navigator.clipboard.writeText(text);
+        const old = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = old, 1200);
+      } catch {
+        alert(text);
+      }
+    }
+    document.getElementById('copyEmail').onclick = (e) => copy('lacrosselawnandlandscape@gmail.com', e.target);
+    document.getElementById('copySubject').onclick = (e) => copy('ADD CUSTOMER', e.target);
+  </script>
+</body>
+</html>
