@@ -1,0 +1,9 @@
+# Never commit real customer exports
+customers.csv
+customers*.csv
+!customers.example.csv
+*-customers-backup*.csv
+.env
+.env.*
+*.pem
+secrets/
