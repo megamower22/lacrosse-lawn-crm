@@ -72,6 +72,15 @@ Aligned with the email-first copy in `quote-and-followups.md`:
 
 Customers live only on the device/browser that uses the app (and any CSV you export). Clearing site data clears the CRM. Export regularly if this is your source of truth.
 
+**Do not:**
+- Commit real customer CSV/JSON files to this repo (see `.gitignore`)
+- Store gate codes, lockbox codes, or passwords in customer notes
+- Share the live GitHub Pages CRM URL in group chats or public posts
+- Use an unlocked shared Chromebook/phone for real customer data
+
+**Do:** Export backups to a **private** Google Drive folder (Restricted sharing — not “anyone with the link”).
+
+
 ## Repo
 
 Intended remote: https://github.com/megamower22/lacrosse-customers  
