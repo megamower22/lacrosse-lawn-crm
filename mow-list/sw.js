@@ -1,5 +1,5 @@
 /* Daily Mow List PWA — caches shell only, never Sheet data */
-const CACHE = 'mow-list-shell-v1';
+const CACHE = 'mow-list-shell-v2';
 const SHELL = [
   './',
   './index.html',
