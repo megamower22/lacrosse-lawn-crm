@@ -694,7 +694,7 @@
         customers.push(normalizeCustomer({
           name: l.name, phone: l.phone, email: l.email, address: l.address,
           status: "lead", source: "website",
-          follow_up_date: new Date().toISOString().slice(0, 10),
+          follow_up_date: new Date().toLocaleDateString("en-CA"),
           notes: ("Service: " + (l.service || "?") + (l.notes ? " — " + l.notes : "") + " " + tag).trim()
         }));
         seen.push(l.id);
