@@ -664,8 +664,54 @@
     });
   }
 
+  /* ---------- Website leads (additive: only ever adds new LEADs) ---------- */
+  const LEADS_URL = "https://lacrosse-lawn-and-landscape.netlify.app/api/leads";
+  const LEADS_KEY = "lacrosse_web_leads_key";
+  const LEADS_SEEN = "lacrosse_web_leads_seen";
+  async function checkWebsiteLeads(manual) {
+    let key = localStorage.getItem(LEADS_KEY);
+    if (!key) {
+      if (!manual) return;
+      key = (prompt("Website leads passphrase (one time):") || "").trim().toLowerCase();
+      if (!key) return;
+    }
+    try {
+      const res = await fetch(LEADS_URL, { headers: { "X-Leads-Key": key }, cache: "no-store" });
+      if (res.status === 401) {
+        localStorage.removeItem(LEADS_KEY);
+        showToast("Wrong passphrase — tap Website leads to try again.");
+        return;
+      }
+      if (!res.ok) throw new Error(res.status);
+      localStorage.setItem(LEADS_KEY, key);
+      const { leads = [] } = await res.json();
+      let seen = [];
+      try { seen = JSON.parse(localStorage.getItem(LEADS_SEEN) || "[]"); } catch { seen = []; }
+      let added = 0;
+      for (const l of leads) {
+        const tag = "[web:" + l.id + "]";
+        if (seen.includes(l.id) || customers.some((c) => (c.notes || "").includes(tag))) continue;
+        customers.push(normalizeCustomer({
+          name: l.name, phone: l.phone, email: l.email, address: l.address,
+          status: "lead", source: "website",
+          follow_up_date: new Date().toISOString().slice(0, 10),
+          notes: ("Service: " + (l.service || "?") + (l.notes ? " — " + l.notes : "") + " " + tag).trim()
+        }));
+        seen.push(l.id);
+        added++;
+      }
+      localStorage.setItem(LEADS_SEEN, JSON.stringify(seen));
+      if (added) { save(); renderAll(); }
+      if (added || manual) showToast(added ? `Added ${added} new website lead(s).` : "No new website leads.");
+    } catch {
+      if (manual) showToast("Couldn't reach website leads. Check connection.");
+    }
+  }
+
   /* ---------- Boot ---------- */
   load();
   bind();
   renderAll();
+  $("#btn-web-leads").addEventListener("click", () => checkWebsiteLeads(true));
+  checkWebsiteLeads(false);
 })();
